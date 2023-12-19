@@ -1,0 +1,12 @@
+@base = https://api.kanga.exchange
+
+### Get market data depth
+GET {{base}}/api/v2/market/depth?market=BTC-USDT HTTP/1.1
+
+
+### Get market data depth
+GET {{base}}/api/v2/market/orderbook/raw?market=BTC-USDT HTTP/1.1
+
+### Get list of available market tickers
+GET {{base}}/api/v2/market/ticker HTTP/1.1
+

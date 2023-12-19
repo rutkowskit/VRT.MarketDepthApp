@@ -1,0 +1,9 @@
+@base = https://api.binance.com
+
+### Get market data depth
+GET {{base}}/api/v3/depth?symbol=BTCUSDT&limit=10 HTTP/1.1
+
+
+### Get list of available market tickers
+GET {{base}}/api/v3/exchangeInfo?permissions=SPOT HTTP/1.1
+

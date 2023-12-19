@@ -1,0 +1,105 @@
+﻿<Window
+    x:Class="VRT.MarketDepth.Wpf.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls1="clr-namespace:VRT.MarketDepth.Wpf.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VRT.MarketDepth.Wpf"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="1879"
+    Height="794"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+    Title="Market Depth Monitor"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="ThreeDBorderWindow">
+
+    <material:DialogHost
+        x:Name="uxDialogHost"
+        CloseOnClickAway="True"
+        DialogTheme="Inherit"
+        Placement="Center">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ToolBarTray Height="60">
+                <ToolBar ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}">
+                    <TextBox
+                        MinWidth="100"
+                        Margin="0,5"
+                        IsReadOnly="True"
+                        material:HintAssist.Hint="Selected market"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding SelectedMarket, Mode=OneWay}" />
+                    <Button
+                        Margin="0,5"
+                        Command="{x:Static material:DialogHost.OpenDialogCommand}"
+                        Style="{StaticResource MaterialDesignToolButton}"
+                        ToolTip="Select market">
+                        <Button.CommandParameter>
+                            <controls1:SelectMarketUserControl
+                                Width="400"
+                                Markets="{Binding Markets}"
+                                OkCommand="{Binding SelectMarketCommand}" />
+                        </Button.CommandParameter>
+                        <material:PackIcon Kind="MarketplaceOutline" />
+                    </Button>
+                    <Separator/>
+                    <TextBox
+                        Width="50"
+                        Margin="0,5"
+                        material:HintAssist.Hint="Top"
+                        MaxLength="3"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding TopItemsCount, Mode=TwoWay}" />
+                    <Button
+                        Margin="0,5"
+                        VerticalAlignment="Bottom"
+                        Command="{Binding GetMarketDepthCommand}"                        
+                        Style="{StaticResource MaterialDesignToolButton}" 
+                        ToolTip="Get market depth">
+                        <material:PackIcon Kind="ChartBar" />
+                    </Button>
+
+                </ToolBar>
+                <ToolBar ClipToBounds="False" Style="{StaticResource MaterialDesignToolBar}">
+                    <TextBox
+                        Width="80"
+                        Margin="5"
+                        material:HintAssist.Hint="Interval Ms"
+                        MaxLength="6"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                        Text="{Binding RefreshIntervalMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ToolBar.OverflowMode="AsNeeded"
+                        ToolTip="Refresh interval in milliseconds" />                    
+                    <Button
+                        Margin="5"
+                        Command="{Binding StartGettingMarketDepthsCommand}"
+                        Style="{StaticResource MaterialDesignToolButton}"
+                        ToolBar.OverflowMode="AsNeeded">
+                        <material:PackIcon Kind="Play" />
+                    </Button>
+                    <Button
+                        Margin="5"
+                        Command="{Binding StartGettingMarketDepthsCancelCommand}"
+                        Style="{StaticResource MaterialDesignToolButton}"
+                        ToolBar.OverflowMode="AsNeeded">
+                        <material:PackIcon Kind="Stop" />
+                    </Button>
+                    <Separator />
+                </ToolBar>
+            </ToolBarTray>
+            <controls1:MarketDepthChart
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                MarketDepth="{Binding MarketDepthData, Mode=OneWay}"
+                MarketName="{Binding MarketName, Mode=OneWay}"
+                MaxSideCount="{Binding TopItemsCount}" />
+        </Grid>
+    </material:DialogHost>
+</Window>

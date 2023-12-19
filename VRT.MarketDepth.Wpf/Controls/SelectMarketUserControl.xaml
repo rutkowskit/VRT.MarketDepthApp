@@ -1,0 +1,45 @@
+﻿<UserControl
+    x:Class="VRT.MarketDepth.Wpf.Controls.SelectMarketUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local1="clr-namespace:VRT.MarketDepth.Wpf.Controls"
+    xmlns:material="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="148"
+    d:DesignWidth="356"
+    x:Name="_selectMarketControl">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <local1:TextBoxWithDebounce 
+            Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+            DelayedText="{Binding FilterText ,ElementName=_selectMarketControl}"
+            material:HintAssist.Hint="Market filter"
+            />
+        <ListBox
+            Grid.Row="1"
+            MaxHeight="300"
+            ItemsSource="{Binding FilteredMarkets, Mode=OneWay, ElementName=_selectMarketControl}"
+            SelectedItem="{Binding SelectedMarket, Mode=TwoWay,ElementName=_selectMarketControl}"
+            VirtualizingStackPanel.IsVirtualizing="True" />
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button
+                HorizontalAlignment="Center"
+                Content="Ok"
+                IsCancel="True"
+                Command="{Binding ConfirmSelectionCommand, ElementName=_selectMarketControl}"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+            <Button
+                HorizontalAlignment="Center"
+                Command="{x:Static material:DialogHost.CloseDialogCommand}"
+                Content="Cancel"
+                IsCancel="True"
+                Style="{StaticResource MaterialDesignFlatButton}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
