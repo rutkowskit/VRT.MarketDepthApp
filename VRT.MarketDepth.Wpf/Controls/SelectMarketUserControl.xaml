@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     d:DesignHeight="148"
     d:DesignWidth="356"
+    PreviewKeyDown="OnKeyDown"
     x:Name="_selectMarketControl">
     <Grid>
         <Grid.RowDefinitions>
@@ -20,13 +21,17 @@
             Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
             DelayedText="{Binding FilterText ,ElementName=_selectMarketControl}"
             material:HintAssist.Hint="Market filter"
+            PreviewKeyDown="OnKeyDown"
             />
         <ListBox
             Grid.Row="1"
-            MaxHeight="300"
+            x:Name="uxMarketsList"
+            MaxHeight="300"            
             ItemsSource="{Binding FilteredMarkets, Mode=OneWay, ElementName=_selectMarketControl}"
             SelectedItem="{Binding SelectedMarket, Mode=TwoWay,ElementName=_selectMarketControl}"
-            VirtualizingStackPanel.IsVirtualizing="True" />
+            MouseDoubleClick="OnMarketDoubleClick"
+            VirtualizingStackPanel.IsVirtualizing="True"            
+            />
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button
                 HorizontalAlignment="Center"
