@@ -33,6 +33,12 @@ This application show the depth of the selected market <br/>
 1. Execute command `dotnet publish -c Release`
 1. Copy all files from subfolder `.\VRT.MarketDepth.Lib\bin\Release\net8.0\publish\` to the installation folder.
 
+## Hotkeys
+
+`Ctrl + M` - Select market
+`Ctrl + D` - Get selected market depth
+`Ctrl + R` - Starts continues market depth gathering
+`Ctrl + S` - Stops continues market depth gathering
 
 ## License
 

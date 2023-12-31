@@ -74,6 +74,10 @@ public partial class SelectMarketUserControl : UserControl
                 ConfirmSelectionCommand.Execute(null);
             }
         }
+        else if (e.Key == Key.Escape)
+        {
+            DialogHost.CloseDialogCommand.Execute(null, null);
+        }
         base.OnKeyDown(e);
     }
 

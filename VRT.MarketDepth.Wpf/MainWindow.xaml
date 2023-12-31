@@ -11,16 +11,41 @@
     Height="794"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
+    FocusManager.FocusedElement="{Binding ElementName=uxDialogHost}"
     Title="Market Depth Monitor"
     WindowStartupLocation="CenterScreen"
     WindowStyle="ThreeDBorderWindow">
-
     <material:DialogHost
         x:Name="uxDialogHost"
-        CloseOnClickAway="True"
+        CloseOnClickAway="False"
         DialogTheme="Inherit"
+        Focusable="True"
         Placement="Center">
-
+        <material:DialogHost.InputBindings>
+            <KeyBinding
+                Key="M"
+                Command="{x:Static material:DialogHost.OpenDialogCommand}"
+                Modifiers="Ctrl">
+                <KeyBinding.CommandParameter>
+                    <controls1:SelectMarketUserControl
+                        Width="400"
+                        Markets="{Binding Markets}"
+                        OkCommand="{Binding SelectMarketCommand}" />
+                </KeyBinding.CommandParameter>
+            </KeyBinding>
+            <KeyBinding
+                Key="D"
+                Command="{Binding GetMarketDepthCommand}"
+                Modifiers="Ctrl" />
+            <KeyBinding
+                Key="R"
+                Command="{Binding StartGettingMarketDepthsCommand}"
+                Modifiers="Ctrl" />
+            <KeyBinding
+                Key="S"
+                Command="{Binding StartGettingMarketDepthsCancelCommand}"
+                Modifiers="Ctrl" />
+        </material:DialogHost.InputBindings>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -32,13 +57,24 @@
                     <TextBox
                         MinWidth="100"
                         Margin="0,5"
-                        IsReadOnly="True"
                         material:HintAssist.Hint="Selected market"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                        Text="{Binding SelectedMarket, Mode=OneWay}" />
+                        Text="{Binding SelectedMarket, Mode=OneWay}">
+                        <TextBox.InputBindings>
+                            <MouseBinding Command="{x:Static material:DialogHost.OpenDialogCommand}" Gesture="LeftClick">
+                                <MouseBinding.CommandParameter>
+                                    <controls1:SelectMarketUserControl
+                                        Width="400"
+                                        Markets="{Binding Markets}"
+                                        OkCommand="{Binding SelectMarketCommand}" />
+                                </MouseBinding.CommandParameter>
+                            </MouseBinding>
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <Button
                         Margin="0,5"
                         Command="{x:Static material:DialogHost.OpenDialogCommand}"
+                        Focusable="True"
                         Style="{StaticResource MaterialDesignToolButton}"
                         ToolTip="Select market">
                         <Button.CommandParameter>
@@ -49,7 +85,7 @@
                         </Button.CommandParameter>
                         <material:PackIcon Kind="MarketplaceOutline" />
                     </Button>
-                    <Separator/>
+                    <Separator />
                     <TextBox
                         Width="50"
                         Margin="0,5"
@@ -60,8 +96,8 @@
                     <Button
                         Margin="0,5"
                         VerticalAlignment="Bottom"
-                        Command="{Binding GetMarketDepthCommand}"                        
-                        Style="{StaticResource MaterialDesignToolButton}" 
+                        Command="{Binding GetMarketDepthCommand}"
+                        Style="{StaticResource MaterialDesignToolButton}"
                         ToolTip="Get market depth">
                         <material:PackIcon Kind="ChartBar" />
                     </Button>
@@ -76,7 +112,7 @@
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                         Text="{Binding RefreshIntervalMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         ToolBar.OverflowMode="AsNeeded"
-                        ToolTip="Refresh interval in milliseconds" />                    
+                        ToolTip="Refresh interval in milliseconds" />
                     <Button
                         Margin="5"
                         Command="{Binding StartGettingMarketDepthsCommand}"

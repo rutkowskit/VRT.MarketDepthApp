@@ -30,13 +30,20 @@
             ItemsSource="{Binding FilteredMarkets, Mode=OneWay, ElementName=_selectMarketControl}"
             SelectedItem="{Binding SelectedMarket, Mode=TwoWay,ElementName=_selectMarketControl}"
             MouseDoubleClick="OnMarketDoubleClick"
+            
             VirtualizingStackPanel.IsVirtualizing="True"            
-            />
+            >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button
                 HorizontalAlignment="Center"
                 Content="Ok"
-                IsCancel="True"
+                IsDefault="True"
                 Command="{Binding ConfirmSelectionCommand, ElementName=_selectMarketControl}"
                 Style="{StaticResource MaterialDesignFlatButton}" />
             <Button
