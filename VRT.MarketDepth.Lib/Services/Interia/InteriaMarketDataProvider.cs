@@ -97,8 +97,8 @@ internal sealed class InteriaMarketDataProvider : IMarketDataProvider
             return null;
         }
         var firstCol = node.SelectSingleNode(".//td");
-        var ticker = firstCol.SelectSingleNode(".//p").InnerText;
-        var wid = firstCol.GetAttributeValue("data-row-href", "")?.Split(",")?.LastOrDefault();
+        var ticker = firstCol?.SelectSingleNode(".//p")?.InnerText;
+        var wid = firstCol?.GetAttributeValue("data-row-href", "")?.Split(",")?.LastOrDefault();
         if (string.IsNullOrWhiteSpace(ticker) || string.IsNullOrWhiteSpace(wid))
         {
             return null;
