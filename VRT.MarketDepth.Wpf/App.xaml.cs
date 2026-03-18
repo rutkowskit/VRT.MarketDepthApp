@@ -2,10 +2,10 @@
 using System.Windows;
 
 namespace VRT.MarketDepth.Wpf;
+
 public partial class App : Application
 {
-    private static IServiceProvider? _services;
-    public static IServiceProvider Services => _services ??= InitServices();
+    public static IServiceProvider Services => field ??= InitServices();
 
     protected override void OnStartup(StartupEventArgs e)
     {

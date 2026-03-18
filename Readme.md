@@ -23,7 +23,8 @@ This application show the depth of the selected market <br/>
 
 - **[Binance](https://www.binance.com)** - Crypto Markets Data Provider
 - **[Kanga](https://trade.kanga.exchange/?refToken=G0BGYLSzoIih)** - Crypto Markets Data Provider
-- **[Interia Biznes](https://biznes.interia.pl/gieldy/notowania-gpw)** - Polish Stock Exchange (GPW) Markets Data Provider
+- **[Gra Gieldowa](https://gragieldowa.pl)** - Polish Stock Exchange (GPW) Markets Data Provider
+- ~~**[Interia Biznes](https://biznes.interia.pl/gieldy/notowania-gpw)** - Polish Stock Exchange (GPW) Markets Data Provider~~
 
 ## Building and Installation
 
@@ -35,10 +36,10 @@ This application show the depth of the selected market <br/>
 
 ## Hotkeys
 
-`Ctrl + M` - Select market
-`Ctrl + D` - Get selected market depth
-`Ctrl + R` - Starts continues market depth gathering
-`Ctrl + S` - Stops continues market depth gathering
+`Ctrl + M` - Select market<br/>
+`Ctrl + D` - Get selected market depth<br/>
+`Ctrl + R` - Starts continues market depth gathering<br/>
+`Ctrl + S` - Stops continues market depth gathering<br/>
 
 ## License
 

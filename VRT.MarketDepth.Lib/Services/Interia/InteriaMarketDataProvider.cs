@@ -23,7 +23,7 @@ internal sealed class InteriaMarketDataProvider : IMarketDataProvider
         }
 
 
-        var result = await Result.Try(() => _marketClient.GetMarketDepth(new GetInteriaMarketDepthRequest(market.InternalId!)))
+        var result = await Result.Try(() => _marketClient.GetMarketDepth(new GetInteriaMarketDepth.Request(market.InternalId!)))
             .Ensure(r => r.IsSuccessStatusCode, r => $"{r.StatusCode} - {r.ReasonPhrase}")
             .Map(r => r.Content)
             .Map(ToResponse);
@@ -37,7 +37,7 @@ internal sealed class InteriaMarketDataProvider : IMarketDataProvider
             : new GetMarketsResponse(markets.Values.ToArray());
     }
 
-    private GetMarketDepthResponse ToResponse(GetInteriaMarketDepthResponse? response)
+    private GetMarketDepthResponse ToResponse(GetInteriaMarketDepth.Response? response)
     {
         if (response is null || response.Count == 0)
         {
